@@ -1,0 +1,12 @@
+# Created by .ignore support plugin (hsz.mobi)
+/*.idea
+*.iml
+/.idea
+*/target
+*.log
+target/
+**/*.~sql
+**/*.~pks
+**/*.~pkb
+.gitignore
+AntiJava8.iml
