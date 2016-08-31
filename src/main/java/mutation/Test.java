@@ -5,8 +5,6 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Stream;
 
-import static java.util.stream.Collectors.toList;
-
 /**
  * Created by Igor Dmitriev on 8/20/16
  */
@@ -19,12 +17,13 @@ public class Test {
         List<String> names = new ArrayList<>();
         clients.map(Client::getName).forEach(names::add); // плохо, такое сплош и рядом вижу
 
-        AtomicInteger count = new AtomicInteger(); // вот так тоже делать не фонтан, такое 3 раза встречал
-        clients.map(Client::getAge).forEach(count::addAndGet);
-        System.out.println(count);
+        AtomicInteger sum = new AtomicInteger(); // вот так тоже делать не фонтан, такое 3 раза встречал
+        clients.map(Client::getAge).forEach(sum::addAndGet);
+        System.out.println(sum);
 
+        //long sum = clients.mapToInt(Client::getAge).sum();// хорошо
 
-        clients.map(Client::getName).collect(toList()); // хорошо
+        //clients.map(Client::getName).collect(toList()); // хорошо
     }
 }
 
