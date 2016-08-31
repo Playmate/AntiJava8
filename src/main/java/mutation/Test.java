@@ -1,8 +1,9 @@
 package mutation;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toList;
 
@@ -11,23 +12,33 @@ import static java.util.stream.Collectors.toList;
  */
 public class Test {
     public static void main(String[] args) {
-        List<Client> clients = Arrays.asList(
-                new Client("Igor"),
-                new Client("Mikalai"),
-                new Client("Andrey")
-        );
-        List<String> names = new ArrayList<>();
+        Stream<Client> clients = Stream.of(new Client("Igor", 1),
+                new Client("Mikalai", 2),
+                new Client("Andrey", 3));
 
-        clients.stream().map(Client::getName).forEach(names::add); // плохо, такое сплош и рядом вижу
-        clients.stream().map(Client::getName).collect(toList()); // хорошо
+        List<String> names = new ArrayList<>();
+        clients.map(Client::getName).forEach(names::add); // плохо, такое сплош и рядом вижу
+
+        AtomicInteger count = new AtomicInteger(); // вот так тоже делать не фонтан, такое 3 раза встречал
+        clients.map(Client::getAge).forEach(count::addAndGet);
+        System.out.println(count);
+
+
+        clients.map(Client::getName).collect(toList()); // хорошо
     }
 }
 
 class Client {
     private final String name;
+    private final int age;
 
-    public Client(String name) {
+    Client(String name, int age) {
         this.name = name;
+        this.age = age;
+    }
+
+    public int getAge() {
+        return age;
     }
 
     public String getName() {
