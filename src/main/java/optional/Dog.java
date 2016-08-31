@@ -8,7 +8,11 @@ import java.util.Optional;
  */
 public class Dog {
     private Optional<Owner> owner; // плохо, owner по прежнему null, нет = new Optional.empty();
-    private Optional<List<Owner>> owners = Optional.empty();  // да, и такое бывает
+    private Optional<List<Owner>> owners = Optional.empty();  // да, и такое бывает, хорошо = List<Owner>  owners = new ArrayList();
+    // + для тех у кого бомбит что создается пустой массив на 10 элементов рассказать
+    // про новое изменение структуры ArrayList:
+    // private static final Object[] EMPTY_ELEMENTDATA = {};
+
 
     public Optional<Owner> getOwner() {
         return owner;
